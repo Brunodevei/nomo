@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NOMO — File Converter</title>
+
+    <meta
+        name="description"
+        content="Convert images and vector files directly in your browser."
+    >
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <header class="header">
+
+            <a href="#" class="brand" aria-label="NOMO home">
+                <span class="brand-mark">
+                    <span></span>
+                    <span></span>
+                </span>
+
+                <span class="brand-name">NOMO</span>
+            </a>
+
+            <nav class="nav" aria-label="Main navigation">
+                <a href="#converter" class="nav-link active">
+                    Converter
+                </a>
+
+                <a href="#formats" class="nav-link">
+                    Formats
+                </a>
+
+                <a href="#about" class="nav-link">
+                    About
+                </a>
+            </nav>
+
+            <div class="header-actions">
+                <button
+                    class="icon-button"
+                    id="themeToggle"
+                    type="button"
+                    aria-label="Toggle theme"
+                >
+                    <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                </button>
+            </div>
+
+        </header>
+
+
+        <main id="converter">
+
+            <section class="hero">
+
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Simple conversion
+                </div>
+
+                <h1>
+                    Your files,
+                    <span>your way.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Convert images quickly or turn
+                    raster images into editable SVG vectors.
+                </p>
+
+            </section>
+
+
+            <section class="converter">
+
+                <div
+                    class="dropzone"
+                    id="dropzone"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Select a file"
+                >
+
+                    <input
+                        type="file"
+                        id="fileInput"
+                        hidden
+                        accept=".png,.jpg,.jpeg,.webp,.gif,.bmp"
+                    >
+
+                    <div class="dropzone-content">
+
+                        <div class="upload-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <path d="M12 16V4"></path>
+                                <path d="m7 9 5-5 5 5"></path>
+                                <path d="M5 20h14"></path>
+                            </svg>
+
+                        </div>
+
+                        <h2>Drop your file here</h2>
+
+                        <p>
+                            or
+                            <button
+                                type="button"
+                                class="browse-button"
+                                id="browseButton"
+                            >
+                                browse your computer
+                            </button>
+                        </p>
+
+                        <span class="file-hint">
+                            PNG, JPG, JPEG, WEBP, GIF or BMP
+                            <strong>·</strong>
+                            up to 50 MB
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="workspace"
+                    id="workspace"
+                >
+
+                    <div class="file-header">
+
+                        <div class="file-info">
+
+                            <div class="file-type-icon" id="fileTypeIcon">
+                                <span>IMG</span>
+                            </div>
+
+                            <div class="file-details">
+
+                                <strong
+                                    class="file-name"
+                                    id="fileName"
+                                >
+                                    image.png
+                                </strong>
+
+                                <span
+                                    class="file-size"
+                                    id="fileSize"
+                                >
+                                    2.4 MB
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="remove-file"
+                            id="removeFile"
+                            type="button"
+                            aria-label="Remove file"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <path d="M18 6 6 18"></path>
+                                <path d="m6 6 12 12"></path>
+                            </svg>
+                        </button>
+
+                    </div>
+
+
+                    <div class="preview-area">
+
+                        <div class="preview-background"></div>
+
+                        <img
+                            id="imagePreview"
+                            class="image-preview"
+                            src=""
+                            alt="File preview"
+                        >
+
+                        <div
+                            class="svg-preview"
+                            id="svgPreview"
+                        ></div>
+
+                    </div>
+
+
+                    <div class="conversion-panel">
+
+                        <div class="conversion-heading">
+
+                            <div>
+                                <span class="panel-label">
+                                    Convert to
+                                </span>
+
+                                <h3>
+                                    Output format
+                                </h3>
+                            </div>
+
+                            <span
+                                class="conversion-status"
+                                id="conversionStatus"
+                            >
+                                Ready
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="format-grid"
+                            id="formatGrid"
+                        >
+
+                            <button
+                                class="format-option"
+                                type="button"
+                                data-format="png"
+                            >
+                                <span class="format-symbol png">
+                                    PNG
+                                </span>
+
+                                <span class="format-copy">
+                                    <strong>PNG</strong>
+                                    <small>Lossless image</small>
+                                </span>
+
+                                <span class="format-check">
+                                    ✓
+                                </span>
+                            </button>
+
+
+                            <button
+                                class="format-option"
+                                type="button"
+                                data-format="jpg"
+                            >
+                                <span class="format-symbol jpg">
+                                    JPG
+                                </span>
+
+                                <span class="format-copy">
+                                    <strong>JPG</strong>
+                                    <small>Smaller file</small>
+                                </span>
+
+                                <span class="format-check">
+                                    ✓
+                                </span>
+                            </button>
+
+
+                            <button
+                                class="format-option"
+                                type="button"
+                                data-format="webp"
+                            >
+                                <span class="format-symbol webp">
+                                    WEBP
+                                </span>
+
+                                <span class="format-copy">
+                                    <strong>WEBP</strong>
+                                    <small>Modern and compact</small>
+                                </span>
+
+                                <span class="format-check">
+                                    ✓
+                                </span>
+                            </button>
+
+
+                            <button
+                                class="format-option svg-option selected"
+                                type="button"
+                                data-format="svg"
+                            >
+                                <span class="format-symbol svg">
+                                    SVG
+                                </span>
+
+                                <span class="format-copy">
+                                    <strong>SVG</strong>
+                                    <small>Scalable vector</small>
+                                </span>
+
+                                <span class="format-check">
+                                    ✓
+                                </span>
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            class="svg-settings"
+                            id="svgSettings"
+                        >
+
+                            <div class="settings-header">
+                                <div>
+                                    <span class="panel-label">
+                                        Vectorization
+                                    </span>
+
+                                    <h3>
+                                        Fine-tune the result
+                                    </h3>
+                                </div>
+                            </div>
+
+
+                            <div class="settings-grid">
+
+                                <div class="setting">
+
+                                    <label for="traceMode">
+                                        Mode
+                                    </label>
+
+                                    <select id="traceMode">
+
+                                        <option value="color">
+                                            Color
+                                        </option>
+
+                                        <option value="posterized">
+                                            Posterized
+                                        </option>
+
+                                        <option value="grayscale">
+                                            Grayscale
+                                        </option>
+
+                                        <option value="blackwhite">
+                                            Black and white
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div
+                                    class="setting"
+                                    id="colorCountSetting"
+                                >
+
+                                    <div class="setting-label-row">
+
+                                        <label for="colorCount">
+                                            Colors
+                                        </label>
+
+                                        <output id="colorCountValue">
+                                            16
+                                        </output>
+
+                                    </div>
+
+                                    <input
+                                        id="colorCount"
+                                        type="range"
+                                        min="2"
+                                        max="32"
+                                        value="16"
+                                    >
+
+                                </div>
+
+
+                                <div class="setting">
+
+                                    <div class="setting-label-row">
+
+                                        <label for="detailLevel">
+                                            Detail
+                                        </label>
+
+                                        <output id="detailValue">
+                                            Medium
+                                        </output>
+
+                                    </div>
+
+                                    <input
+                                        id="detailLevel"
+                                        type="range"
+                                        min="1"
+                                        max="5"
+                                        value="3"
+                                    >
+
+                                </div>
+
+
+                                <div class="setting">
+
+                                    <div class="setting-label-row">
+
+                                        <label for="smoothLevel">
+                                            Smoothing
+                                        </label>
+
+                                        <output id="smoothValue">
+                                            3
+                                        </output>
+
+                                    </div>
+
+                                    <input
+                                        id="smoothLevel"
+                                        type="range"
+                                        min="1"
+                                        max="5"
+                                        value="3"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="vector-note">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                >
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="9"
+                                    ></circle>
+
+                                    <path d="M12 11v5"></path>
+                                    <path d="M12 8h.01"></path>
+                                </svg>
+
+                                <span>
+                                    The SVG will be created from
+                                    vector paths — not just
+                                    an embedded image.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="conversion-action">
+
+                            <button
+                                class="convert-button"
+                                id="convertButton"
+                                type="button"
+                            >
+
+                                <span class="button-label">
+                                    Convert
+                                </span>
+
+                                <span
+                                    class="button-loading"
+                                    aria-hidden="true"
+                                >
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+
+                                <svg
+                                    class="button-arrow"
+                                    viewBox="0 0 24 24"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M5 12h14"></path>
+                                    <path d="m13 6 6 6-6 6"></path>
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="result"
+                    id="result"
+                >
+
+                    <div class="result-icon">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path d="m5 12 4 4L19 6"></path>
+                        </svg>
+
+                    </div>
+
+                    <div class="result-copy">
+
+                        <span>
+                            Conversion complete
+                        </span>
+
+                        <strong id="resultFileName">
+                            file.svg
+                        </strong>
+
+                    </div>
+
+                    <a
+                        class="download-button"
+                        id="downloadButton"
+                        href="#"
+                    >
+                        Download
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path d="M12 4v12"></path>
+                            <path d="m7 11 5 5 5-5"></path>
+                            <path d="M5 20h14"></path>
+                        </svg>
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <section
+                class="formats-section"
+                id="formats"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="eyebrow">
+                            <span class="eyebrow-dot"></span>
+                            Currently available
+                        </span>
+
+                        <h2>
+                            Built for images.
+                        </h2>
+                    </div>
+
+                    <p>
+                        We are starting with the most useful formats.
+                        More conversions can be added later.
+                    </p>
+
+                </div>
+
+
+                <div class="format-list">
+
+                    <div class="format-card">
+                        <span class="format-card-icon png">
+                            PNG
+                        </span>
+
+                        <div>
+                            <strong>PNG</strong>
+                            <span>Raster</span>
+                        </div>
+                    </div>
+
+
+                    <div class="format-card">
+                        <span class="format-card-icon jpg">
+                            JPG
+                        </span>
+
+                        <div>
+                            <strong>JPG</strong>
+                            <span>Raster</span>
+                        </div>
+                    </div>
+
+
+                    <div class="format-card">
+                        <span class="format-card-icon webp">
+                            WEBP
+                        </span>
+
+                        <div>
+                            <strong>WEBP</strong>
+                            <span>Raster</span>
+                        </div>
+                    </div>
+
+
+                    <div class="format-card featured">
+                        <span class="format-card-icon svg">
+                            SVG
+                        </span>
+
+                        <div>
+                            <strong>SVG</strong>
+                            <span>Vector</span>
+                        </div>
+
+                        <span class="featured-label">
+                            Vectorization
+                        </span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <section
+                class="about-section"
+                id="about"
+            >
+
+                <div class="about-number">
+                    01
+                </div>
+
+                <div class="about-content">
+
+                    <span class="eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        How it works
+                    </span>
+
+                    <h2>
+                        Drop.
+                        <br>
+                        Choose.
+                        <br>
+                        <span>Convert.</span>
+                    </h2>
+
+                    <p>
+                        NOMO is designed to eliminate unnecessary steps.
+                        Choose a file, select the format,
+                        and let your browser do the work.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <footer class="footer">
+
+            <div class="footer-container">
+
+                <div class="footer-brand">
+
+                    <div class="brand-mark small">
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                    <span>NOMO</span>
+
+                </div>
+
+                <span class="footer-note">
+                    Local conversion in your browser.
+                </span>
+
+                <span class="footer-copy">
+                    &copy; 2026 NOMO
+                </span>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+
+    <script type="module">
+        try {
+            const VetraPotrace = await import(
+                "https://esm.sh/esm-potrace-wasm@0.5.1"
+            );
+
+            window.VetraPotrace = VetraPotrace;
+            window.dispatchEvent(
+                new Event("vetra:potrace-ready")
+            );
+        } catch (error) {
+            console.error(
+                "Failed to load Potrace:",
+                error
+            );
+
+            window.VetraPotraceError = error;
+            window.dispatchEvent(
+                new Event("vetra:potrace-error")
+            );
+        }
+    </script>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
